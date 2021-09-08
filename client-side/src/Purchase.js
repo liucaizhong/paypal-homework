@@ -68,7 +68,6 @@ const Purchase = ({
 
       // detect active view to control the submit button
       instance.on('changeActiveView', activeView => {
-        console.log(activeView)
         const { newViewId, previousViewId } = activeView;
         if (newViewId === 'card') {
           setSubmitVisible(true);
