@@ -39,7 +39,7 @@ const Checkout = () => {
       <Button className='checkout-btn' type='primary' block onClick={togglePayment}>
         Checkout
       </Button>
-      <Drawer height='550' closable placement='bottom' visible={paymentVisible} onClose={togglePayment}>
+      <Drawer height='fit-content' closable placement='bottom' visible={paymentVisible} onClose={togglePayment}>
         <Purchase total={product.amount * product.price} buyer={customer} />
       </Drawer>
     </div>

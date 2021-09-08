@@ -17,7 +17,7 @@ const Buyer = ({
   }
 
   return (
-    <Card title='Buyer Information'>
+    <Card title='Recipient Information'>
       <Input.Group compact>
         <Input
           placeholder='first name'

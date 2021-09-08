@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 import './Purchase.css';
 
 const Purchase = ({
@@ -12,7 +12,14 @@ const Purchase = ({
   const history = useHistory();
   const { address, firstName, lastName } = buyer;
   const [submitVisible, setSubmitVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const createTransaction = nonce => {
+    if (!nonce) {
+      setIsSubmitting(false);
+      return;
+    }
+    setIsSubmitting(true);
+
     axios({
       method: 'post',
       url: '/checkout',
@@ -64,6 +71,10 @@ const Purchase = ({
           setSubmitVisible(false);
         }
 
+        if (newViewId === 'methods') {
+          setSubmitVisible(false);
+        }
+
         if (newViewId === 'methods' && previousViewId === 'paypal') {
           instance.requestPaymentMethod((requestPaymentMethodErr, payload) => {
             const { nonce } = payload;
@@ -78,7 +89,8 @@ const Purchase = ({
   }, [total, buyer]);
 
   return (
-    <div>
+    <div className='purchase'>
+      <Spin className='spin' tip='Submitting' spinning={isSubmitting} />
       <div className='total'>${total}</div>
       <div id='dropin-container' />
       <Button style={{ display: submitVisible ? 'block' : 'none' }} id='submit-button' type='primary' block>
