@@ -7,6 +7,7 @@ const Buyer = ({
 }) => {
   const { firstName, lastName, phone, email, address } = defaultInfo;
   const { countryCode, state, city, line1, line2, postalCode } = address;
+  // change the recipient information
   const changeInfo = info => {
     if (onChange) {
       onChange({

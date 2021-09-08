@@ -5,6 +5,7 @@ import './Product.css';
 const Product = ({
   info,
 }) => {
+  // show the product information
   const { name, price, amount, desc } = info;
 
   return (

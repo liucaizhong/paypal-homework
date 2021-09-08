@@ -6,12 +6,14 @@ import Purchase  from './Purchase';
 import './Checkout.css';
 
 const Checkout = () => {
+  // mock product information
   const product = {
     name: 'Jordan NBA Swingman Jersey T-Shirt',
     amount: 1,
     price: 599,
     desc: '2020 Season Los Angeles Statement Edition'
   }
+  // mock recipient information
   const [customer, setCustomer] = useState({
     firstName: 'Caizhong',
     lastName: 'Liu',
@@ -27,6 +29,7 @@ const Checkout = () => {
     },
   });
 
+  // control the payment drawer is visible or not
   const [paymentVisible, setPaymentVisible] = useState(false);
   const togglePayment = () => {
     setPaymentVisible(!paymentVisible);

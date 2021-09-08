@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef -- brainTree is global variable */
 import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
@@ -11,8 +11,11 @@ const Purchase = ({
 }) => {
   const history = useHistory();
   const { address, firstName, lastName } = buyer;
+  // submit button is visible when pay by card and interact with server-side
   const [submitVisible, setSubmitVisible] = useState(false);
+  // show loading indicator when interact with server-side
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // post transaction to server-side
   const createTransaction = nonce => {
     if (!nonce) {
       setIsSubmitting(false);
@@ -40,6 +43,7 @@ const Purchase = ({
   }
 
   useEffect(() => {
+    // use braintree to render UI
     braintree.dropin.create({
       authorization: 'sandbox_jyjz5nfx_dzt5msgrphgvdpwv',
       selector: '#dropin-container',
@@ -53,6 +57,7 @@ const Purchase = ({
         currency: 'USD',
       },
     }, (error, instance) => {
+      // render submit button
       document.getElementById('submit-button').addEventListener('click', () => {
         instance.requestPaymentMethod((requestPaymentMethodErr, payload) => {
           const { nonce } = payload;
@@ -61,6 +66,7 @@ const Purchase = ({
         });
       });
 
+      // detect active view to control the submit button
       instance.on('changeActiveView', activeView => {
         console.log(activeView)
         const { newViewId, previousViewId } = activeView;
@@ -85,7 +91,7 @@ const Purchase = ({
       });
     });
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- only retrigger when total and buyer change
   }, [total, buyer]);
 
   return (

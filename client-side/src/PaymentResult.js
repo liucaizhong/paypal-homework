@@ -5,8 +5,10 @@ import { PageHeader, Result } from 'antd';
 const PaymentResult = () => {
   const history = useHistory();
   const { state } = useLocation();
+  // show transaction(id, date) and error message
   const { transaction, error } = state;
   const { id, createdAt } = transaction;
+
   return (
     <div>
       <PageHeader
